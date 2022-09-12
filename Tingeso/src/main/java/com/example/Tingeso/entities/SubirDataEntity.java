@@ -6,22 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "empleado")
+@Table(name = "data")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmpleadoEntity{
+public class SubirDataEntity {
     @Id
     @NotNull
+    @GeneratedValue
+    private Integer ID;
+    private String fecha;
+    private String hora;
     private String rut;
-    private String apellidos;
-    private String nombres;
-    private String fecha_nacimiento;
-    private String categoria;
-    private String fecha_ingreso;
-
 }

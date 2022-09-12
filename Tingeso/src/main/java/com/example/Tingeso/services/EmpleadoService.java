@@ -14,4 +14,5 @@ public class EmpleadoService {
     public ArrayList<EmpleadoEntity> obtenerEmpleados(){
         return (ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
     }
+
 }
