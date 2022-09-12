@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mt-5">
+
+      <form method="POST" enctype="multipart/form-data" action="#" th:action="@{/fileUpload}">
+        <div class="form-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" name="file">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
