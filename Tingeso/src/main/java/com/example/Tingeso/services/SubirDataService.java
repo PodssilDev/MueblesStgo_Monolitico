@@ -43,16 +43,14 @@ public class SubirDataService {
 
     public String leerTxt(String direccion){
         String texto = "";
-        Integer id = 1;
         dataRepository.deleteAll();
         try{
             BufferedReader bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
             String bfRead;
             while((bfRead = bf.readLine()) != null){
-                guardarDataDB(id, bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2]);
+                guardarDataDB(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2]);
                 temp = temp + "\n" + bfRead;
-                id = id + 1;
             }
             texto = temp;
         }catch(Exception e){
@@ -65,8 +63,11 @@ public class SubirDataService {
         return dataRepository.save(data);
     }
 
-    public void guardarDataDB(Integer ID, String fecha, String hora, String rut){
-         SubirDataEntity newData = new SubirDataEntity(ID, fecha, hora, rut);
+    public void guardarDataDB(String fecha, String hora, String rut){
+         SubirDataEntity newData = new SubirDataEntity();
+         newData.setFecha(fecha);
+         newData.setRut(rut);
+         newData.setHora(hora);
          guardarData(newData);
     }
 }

@@ -64,6 +64,29 @@
       color: #ffbc0e;
       transform: scale(1.1);
     }
+    .header .btn-2 button {
+      margin-left: 20px;
+      font-weight: 700;
+      color: #1b3039;
+      padding: 9px 25px;
+      background: #eceff1;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease 0s;
+    }
+    .header .btn-2 button:hover{
+      background-color: #e2f1f8;
+      color: #ffbc0e;
+      transform: scale(1.1);
+    }
+    .form1{
+      border: 1px solid rgb(82, 82, 173);
+      padding: 30px;
+      border-radius: 30px;
+      margin-left: 300px;
+      margin-right: 300px;
+    }
   </style>
 </head>
 <body>
@@ -74,22 +97,26 @@
   <nav>
   </nav>
   <a class="btn" href="/main"><button>Volver al menú principal</button></a>
+  <a class="btn-2" href="/fileInformation"><button>Ver el último Data.txt cargado</button></a>
 </header>
 <div class = "f">
 <div class="container">
-  <h1><b>Cargar el archivo Data.txt </b></h1>
+  <h1><b>Cargar el archivo de datos</b></h1>
   <form th:action="@{/fileUpload}" method="POST" enctype="multipart/form-data">
     <br>
     <input type="file" class="form-control" name="file">
     <br>
     <input class = "btn btn-primary"
-          type="submit" value="Cargar archivo">
+          type="submit" value="Cargar el archivo a la Base de Datos">
   </form>
   <br>
-  <section>
-    <a class="btn btn-light"  href="/fileInformation" role="button" >Ver DATA.txt cargado</a>
-  </section>
 </div>
+</div>
+<br>
+<hr>
+
+<div class = "form1">
+  <h5><b>Recuerde que el nombre del archivo debe ser "Data.txt"!</b></h5>
 </div>
 </body>
 </html>
