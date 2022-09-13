@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Subir Justificativos</title>
+  <link  rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+         crossorigin="anonymous">
+  <style>
+    body{
+      background:  #262626
+    }
+    .f{
+      display: flex;
+      flex-wrap: wrap;
+      color: white;
+    }
+    .btn.btn-flat{
+      border-radius: 0;
+      border: 2px solid;
+      height: 50px;
+      background: transparent;
+      webkit-transition: 0.9s;
+      transition: 0.9s;
+    }
+    .btn-flat.btn-light{
+      color: #007bff;
+      background: linear-gradient(30deg, #007bff 50%, transparent 50%);
+      background-position: right bottom;
+      background-size: 220% 100%
+    }
+    .btn-flat.btn-light:hover{
+      background-position: left bottom;
+      border: 2px solid #007bff;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+<div th:align = "center" class = "f">
+<div class="container">
+  <h1> Subir Justificativos</h1>
+  <hr style = "color: white">
+  <h2>Ingrese los siguientes datos:</h2>
+  <br>
+  <form action="#" th:action="@{/guardarJustificativo}" th:object="${justificativo}"
+        method="POST">
+    <input type="text" th:field="*{rut}"
+           placeholder="Ingrese el rut del empleado" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{fecha}"
+           placeholder="Ingrese la fecha del justificativo" class="form-control mb-4 col-4">
+
+
+    <button type="submit" class="btn btn-info col-2"> Registrar Justificativo</button>
+  </form>
+  <br>
+  <section>
+    <a class="btn btn-light btn-flat"  href="/main" role="button">Volver al menú principal</a>
+  </section>
+
+  <hr style = "color: white">
+  <h5>Conste de que el Empleado cuyo RUT será ingresado queda justificado de su ausencia en la fecha indicada.
+  Muebles STGO queda en conocimiento del justificativo y solamente el Jefe de la Oficina de Recursos Humanos tendra acceso a este.</h5>
+</div>
+</div>
+</body>
+</html>

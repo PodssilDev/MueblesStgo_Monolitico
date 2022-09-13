@@ -7,22 +7,95 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        body{
-            background: #262626
+        *{
+            font-family: sans-serif; /* Change your font family */
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        table{
+        .content-table{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .content-table thead tr{
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .content-table th,
+        .content-table td{
+            padding: 12px 15px;
+        }
+        .content-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+        .content-table tbody tr:nth-of-type(even){
+            background-color: #f3f3f3;
+        }
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #009879;
+        }
+        .content-table tbody tr.active-row{
+            font-weight: bold;
+            color: #009879;
+        }
+        .header{
+            background-color: #1b3039;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 85px;
+            padding: 5px 10%;
+        }
+        .header .logo{
+            margin-right: auto;
             color: white;
+            font-family: 'Pacifico',serif;
+        }
+        .header .btn button{
+            margin-left: 20px;
+            font-weight: 700;
+            color: #1b3039;
+            padding: 9px 25px;
+            background: #eceff1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+        }
+        .header .btn button:hover{
+            background-color: #e2f1f8;
+            color: #ffbc0e;
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-<div align = "center" class = "container my-2">
-    <h1 style="color: white"> Listado de empleados</h1>
-    <table border = "1" class = "table table-striped table-responsive-md">
+<header class="header">
+    <div class="logo">
+        <h1>MueblesStgo</h1>
+    </div>
+    <nav>
+    </nav>
+    <a class="btn" href="/main"><button>Volver al menú principal</button></a>
+</header>
+<div th:align = "center" class = "container my-2">
+
+    <h1><b> Listado de empleados</b></h1>
+    <table th:border = "1" class = "content-table">
         <thead>
         <tr>
-            <!--<th>Rut</th>-->
+            <th>Rut</th>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Fecha de Nacimiento</th>
@@ -32,7 +105,7 @@
         </thead>
         <tbody>
         <tr th:each="empleado:${empleados}">
-            <!--<td th:text="${empleado.rut}"></td>-->
+            <td th:text="${empleado.rut}"></td>
             <td th:text="${empleado.nombres}"></td>
             <td th:text="${empleado.apellidos}"></td>
             <td th:text="${empleado.fecha_nacimiento}"></td>
@@ -41,11 +114,6 @@
         </tr>
         </tbody>
     </table>
-</div>
-<div class="row justify-content-center">
-<section>
-<a class="btn btn-light"  href="/main" role="button">Volver al menú principal</a>
-</section>
 </div>
 </body>
 </html>
