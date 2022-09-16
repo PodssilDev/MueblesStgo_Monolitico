@@ -15,4 +15,8 @@ public class EmpleadoService {
         return (ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
     }
 
+    public EmpleadoEntity obtenerEspecifico(){
+        return empleadoRepository.findByNameCustomQuery("asd");
+    }
+
 }

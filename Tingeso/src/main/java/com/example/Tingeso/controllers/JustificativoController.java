@@ -25,7 +25,6 @@ public class JustificativoController {
     }
     @PostMapping("/guardarJustificativo")
     public String guardarJustificativo(@ModelAttribute("justificativo") JustificativoEntity justificativo) {
-        // save employee to database
         justificativoService.guardarJustificativo(justificativo);
         return "redirect:/nuevoJustificativo";
     }
