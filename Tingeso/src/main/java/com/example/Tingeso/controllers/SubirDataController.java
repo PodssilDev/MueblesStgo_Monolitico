@@ -33,9 +33,9 @@ public class SubirDataController {
     }
 
     @GetMapping("/fileInformation")
-    public String listar(Model model){
-        ArrayList<SubirDataEntity> datas=subirData.obtenerData();
-        model.addAttribute("datas",datas);
+    public String listar(Model model) {
+        ArrayList<SubirDataEntity> datas = subirData.obtenerData();
+        model.addAttribute("datas", datas);
         return "fileInformation";
     }
 }

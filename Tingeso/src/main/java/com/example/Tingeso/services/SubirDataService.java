@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SubirDataService {
@@ -70,4 +71,13 @@ public class SubirDataService {
          newData.setHora(hora);
          guardarData(newData);
     }
+
+    public SubirDataEntity obtenerEspecifico(String rut, String fecha){
+        return dataRepository.buscarData(rut, fecha);
+    }
+
+    public List<String> obtenerRuts(){
+        return dataRepository.findDistinctRut();
+    }
+
 }

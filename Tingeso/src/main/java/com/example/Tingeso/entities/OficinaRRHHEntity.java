@@ -10,17 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "empleado")
+@Table (name = "planilla_sueldos")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmpleadoEntity{
+public class OficinaRRHHEntity {
     @Id
     @NotNull
     private String rut;
-    private String apellidos;
-    private String nombres;
-    private String fecha_nacimiento;
+    private String nombre_empleado;
     private String categoria;
-    private String fecha_ingreso;
+    private String total_servicio;
+    private String sueldo_mensual;
 }

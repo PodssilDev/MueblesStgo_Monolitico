@@ -19,4 +19,8 @@ public class EmpleadoService {
         return empleadoRepository.findByNameCustomQuery("asd");
     }
 
+    public String obtenerCategoria(String rut){
+        return empleadoRepository.findCategory(rut);
+    }
+
 }

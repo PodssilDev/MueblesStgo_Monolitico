@@ -14,4 +14,8 @@ public class JustificativoService {
     public void guardarJustificativo(JustificativoEntity justificativo){
         this.justificativoRepository.save(justificativo);
     }
+
+    public JustificativoEntity buscarJustificativo(String rut, String fecha){
+        return this.justificativoRepository.buscarJustificativo(rut, fecha);
+    }
 }
