@@ -13,4 +13,7 @@ public interface EmpleadoRepository extends JpaRepository<EmpleadoEntity, String
 
     @Query("select e.categoria from EmpleadoEntity e where e.rut = :rut")
     String findCategory(@Param("rut") String rut);
+
+    @Query("select e from EmpleadoEntity e where e.rut = :rut")
+    EmpleadoEntity findByRut(@Param("rut")String rut);
 }

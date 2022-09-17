@@ -23,4 +23,8 @@ public class EmpleadoService {
         return empleadoRepository.findCategory(rut);
     }
 
+    public EmpleadoEntity findByRut(String rut){
+        return empleadoRepository.findByRut(rut);
+    }
+
 }

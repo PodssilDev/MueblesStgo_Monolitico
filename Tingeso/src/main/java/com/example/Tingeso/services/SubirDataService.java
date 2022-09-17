@@ -80,4 +80,8 @@ public class SubirDataService {
         return dataRepository.findDistinctRut();
     }
 
+    public String obtenerFechaRut(String rut){
+        return dataRepository.buscarFechaRut(rut);
+    }
+
 }

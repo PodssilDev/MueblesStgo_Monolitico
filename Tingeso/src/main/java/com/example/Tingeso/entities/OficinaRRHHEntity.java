@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "planilla_sueldos")
+@Table (name = "reporte_planilla")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,6 +20,13 @@ public class OficinaRRHHEntity {
     private String rut;
     private String nombre_empleado;
     private String categoria;
-    private String total_servicio;
-    private String sueldo_mensual;
+    private Integer dedicacion;
+    private Integer sueldo_mensual;
+    private double bonificacion_dedicacion;
+    private double horas_extras;
+    private double descuentos;
+    private double sueldo_bruto;
+    private double previsional;
+    private double salud;
+    private double sueldo_final;
 }

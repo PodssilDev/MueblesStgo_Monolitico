@@ -19,4 +19,7 @@ public interface SubirDataRepository extends JpaRepository <SubirDataEntity, Int
     @Query(value = "select distinct rut from data", nativeQuery = true)
     List<String> findDistinctRut();
 
+    @Query(value = "select e.fecha from data as e where e.rut = :rut limit 1", nativeQuery = true)
+    String buscarFechaRut(@Param("rut")String rut);
+
 }
