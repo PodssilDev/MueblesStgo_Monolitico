@@ -37,9 +37,47 @@ public class OficinaRRHHService {
         empleado_reporte.setDedicacion(calcularDedicacion(empleadoActual.getFecha_ingreso(), subirData.obtenerFechaRut(empleadoActual.getRut())));
         empleado_reporte.setSueldo_mensual(obtenerSueldo(empleadoActual.getCategoria()));
         empleado_reporte.setBonificacion_dedicacion(calcularBonificacionDedicacion(empleado_reporte.getSueldo_mensual(), empleado_reporte.getDedicacion()));
-        empleado_reporte.setHoras_extras(0.0);
+        empleado_reporte.setHoras_extras(calcularMontoExtra(empleadoActual.getRut(), subirData.obtenerFechaRut(empleadoActual.getRut())));
         empleado_reporte.setDescuentos(comprobarDescuentos(empleadoActual.getRut(), subirData.obtenerFechaRut(empleadoActual.getRut())));
         oficinaRepository.save(empleado_reporte);
+    }
+
+    public double calcularMontoExtra(String rut, String fecha_inicial) throws ParseException {
+        Calendar calendario = prepararCalendario(fecha_inicial);
+        int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+        double montoExtra = 0.0;
+        for(int day = 1; day<= lastDay; day++) {
+            calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
+            if (!(comprobarFinesSemana(calendario))) {
+                String fecha_real = formatDate(calendario);
+                if(subirData.obtenerEspecifico2(rut, fecha_real) != null){
+                    String hora = subirData.obtenerEspecifico2(rut,fecha_real).getHora();
+                    montoExtra = montoExtra + extraCategoria(empleado.findByRut(rut).getCategoria(), contarHoras(hora));
+                }
+            }
+
+        }
+        return montoExtra;
+    }
+
+    public double extraCategoria(String categoria, Integer contador){
+        if(categoria.equals("A")){
+            return (25000 * contador);
+        } else if (categoria.equals("B")) {
+            return (20000 * contador);
+        } else{
+            return (10000 * contador);
+        }
+    }
+
+    public Integer contarHoras(String hora_string) throws ParseException {
+        SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
+        Date hora = dt.parse(hora_string);
+        int contador = 0;
+        if(hora.after(dt.parse("18:00"))){
+            contador = (int)((hora.getTime() - dt.parse("18:00").getTime()) / (60 * 60 * 1000));
+        }
+        return contador;
     }
 
     public Integer calcularDedicacion(String fecha_inicio, String fecha_temporal) throws ParseException {

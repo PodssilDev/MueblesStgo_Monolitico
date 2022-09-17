@@ -76,6 +76,10 @@ public class SubirDataService {
         return dataRepository.buscarData(rut, fecha);
     }
 
+    public SubirDataEntity obtenerEspecifico2(String rut, String fecha){
+        return dataRepository.buscarData2(rut, fecha);
+    }
+
     public List<String> obtenerRuts(){
         return dataRepository.findDistinctRut();
     }

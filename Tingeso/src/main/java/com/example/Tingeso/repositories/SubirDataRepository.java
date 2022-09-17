@@ -22,4 +22,6 @@ public interface SubirDataRepository extends JpaRepository <SubirDataEntity, Int
     @Query(value = "select e.fecha from data as e where e.rut = :rut limit 1", nativeQuery = true)
     String buscarFechaRut(@Param("rut")String rut);
 
+    @Query(value = "select * from data as e where e.rut = :rut and e.fecha = :fecha order by e.hora desc limit 1",  nativeQuery = true)
+    SubirDataEntity buscarData2(@Param("rut")String rut, @Param("fecha") String fecha);
 }
