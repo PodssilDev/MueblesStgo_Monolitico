@@ -35,8 +35,9 @@ public class SubirDataService {
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
     }
     public String guardar(MultipartFile file){
-        if(file != null){
-            if((!file.isEmpty()) && (file.getOriginalFilename().toUpperCase().equals("DATA.TXT"))){
+        String filename = file.getOriginalFilename();
+        if(filename != null){
+            if((!file.isEmpty()) && (filename.toUpperCase().equals("DATA.TXT"))){
                 try{
                     byte [] bytes = file.getBytes();
                     Path path  = Paths.get(carpeta + file.getOriginalFilename());
@@ -56,11 +57,12 @@ public class SubirDataService {
 
     public String leerTxt(String direccion){
         String texto = "";
+        BufferedReader bf = null;
         dataRepository.deleteAll();
         justificativos.eliminarJustificativos();
         autorizaciones.eliminarAutorizaciones();
         try{
-            BufferedReader bf = new BufferedReader(new FileReader(direccion));
+            bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
             String bfRead;
             while((bfRead = bf.readLine()) != null){
@@ -70,6 +72,14 @@ public class SubirDataService {
             texto = temp;
         }catch(Exception e){
             System.err.println("No se encontro el archivo");
+        }finally{
+            if(bf != null){
+                try{
+                    bf.close();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
         }
         return texto;
     }
