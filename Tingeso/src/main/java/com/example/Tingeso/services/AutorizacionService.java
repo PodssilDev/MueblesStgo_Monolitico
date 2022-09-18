@@ -14,4 +14,12 @@ public class AutorizacionService {
     public void guardarAutorizacion(AutorizacionEntity autorizacion){
         this.autorizacionRepository.save(autorizacion);
     }
+
+    public AutorizacionEntity buscarAutorizacion(String rut, String fecha){
+        return this.autorizacionRepository.buscarAutorizacion(rut, fecha);
+    }
+
+    public void eliminarAutorizaciones(){
+        this.autorizacionRepository.deleteAll();
+    }
 }

@@ -20,7 +20,14 @@ import java.util.List;
 @Service
 public class SubirDataService {
     @Autowired
-    SubirDataRepository dataRepository;
+    private SubirDataRepository dataRepository;
+
+    @Autowired
+    private AutorizacionService autorizaciones;
+
+    @Autowired
+    private JustificativoService justificativos;
+
     private String carpeta = "src/main/resources/cargas//";
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
 
@@ -28,7 +35,7 @@ public class SubirDataService {
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
     }
     public String guardar(MultipartFile file){
-        if(!file.isEmpty()) {
+        if((!file.isEmpty()) && (file.getOriginalFilename().toUpperCase().equals("DATA.TXT"))){
             try{
                 byte [] bytes = file.getBytes();
                 Path path  = Paths.get(carpeta + file.getOriginalFilename());
@@ -45,6 +52,8 @@ public class SubirDataService {
     public String leerTxt(String direccion){
         String texto = "";
         dataRepository.deleteAll();
+        justificativos.eliminarJustificativos();
+        autorizaciones.eliminarAutorizaciones();
         try{
             BufferedReader bf = new BufferedReader(new FileReader(direccion));
             String temp = "";

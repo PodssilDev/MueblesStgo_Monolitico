@@ -18,4 +18,8 @@ public class JustificativoService {
     public JustificativoEntity buscarJustificativo(String rut, String fecha){
         return this.justificativoRepository.buscarJustificativo(rut, fecha);
     }
+
+    public void eliminarJustificativos(){
+        this.justificativoRepository.deleteAll();
+    }
 }

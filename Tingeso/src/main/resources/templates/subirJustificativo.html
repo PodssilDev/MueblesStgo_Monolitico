@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Subir Justificativos</title>
+  <title>Justificativos</title>
   <link  rel="stylesheet"
          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -11,33 +10,53 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
-    body{
-      background:  #262626
-    }
-    .f{
+    .mainclass{
+      margin-top: 20px;
       display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+    }
+    form {
+      border: 6px solid #f1f1f1;
+    }
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #42bfbb;
       color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
     }
-    .btn.btn-flat{
-      border-radius: 0;
-      border: 2px solid;
-      height: 50px;
-      background: transparent;
-      webkit-transition: 0.9s;
-      transition: 0.9s;
+    h1 {
+      text-align:center;
     }
-    .btn-flat.btn-light{
-      color: #007bff;
-      background: linear-gradient(30deg, #007bff 50%, transparent 50%);
-      background-position: right bottom;
-      background-size: 220% 100%
+    button:hover {
+      opacity: 0.8;
     }
-    .btn-flat.btn-light:hover{
-      background-position: left bottom;
-      border: 2px solid #007bff;
-      color: #fff;
+    .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
     }
+    .container {
+      padding: 16px 0;
+      text-align:left;
+    }
+    span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+    }
+    /* Change styles for span on extra small screens */
     .header{
       background-color: #1b3039;
       display: flex;
@@ -67,7 +86,6 @@
       color: #ffbc0e;
       transform: scale(1.1);
     }
-
   </style>
 </head>
 <body>
@@ -79,32 +97,26 @@
   </nav>
   <a class="btn" href="/main"><button>Volver al menú principal</button></a>
 </header>
-<div th:align = "center" class = "f">
-<div class="container">
-  <h1> Subir Justificativos</h1>
-  <hr style = "color: white">
-  <h2>Ingrese los siguientes datos:</h2>
-  <br>
+<div class = "mainclass">
   <form action="#" th:action="@{/guardarJustificativo}" th:object="${justificativo}"
         method="POST">
-    <input type="text" th:field="*{rut}"
-           placeholder="Ingrese el rut del empleado" class="form-control mb-4 col-4">
-
-    <input type="text" th:field="*{fecha}"
-           placeholder="Ingrese la fecha del justificativo" class="form-control mb-4 col-4">
-
-
-    <button type="submit" class="btn btn-info col-2"> Registrar Justificativo</button>
+    <h1><b>Justificativos</b></h1>
+    <div class="formcontainer">
+      <hr/>
+      <div class="container">
+        <label><strong>Rut</strong></label>
+        <input type="text" th:field="*{rut}"
+               placeholder="Rut del empleado en formato xx.xxx.xxx-x " name="uname" required>
+        <label><strong>Fecha</strong></label>
+        <input type="text" th:field="*{fecha}"
+               placeholder="Fecha en formato AAAA/MM/DD" name="psw" required>
+      </div>
+      <button type="submit">Registrar Justificativo</button>
+    </div>
   </form>
-  <br>
-  <section>
-    <a class="btn btn-light btn-flat"  href="/main" role="button">Volver al menú principal</a>
-  </section>
-
-  <hr style = "color: white">
-  <h5>Conste de que el Empleado cuyo RUT será ingresado queda justificado de su ausencia en la fecha indicada.
-  Muebles STGO queda en conocimiento del justificativo y solamente el Jefe de la Oficina de Recursos Humanos tendra acceso a este.</h5>
 </div>
-</div>
+<hr>
+<u><h6 th:align = "center">Conste de que el empleado cuyo RUT será ingresado quedará JUSTIFICADO de su ausencia en la FECHA indicada.
+  MueblesStgo quedará en conocimiento del justificativo y solamente el Jefe de la Oficina de Recursos Humanos tendra acceso a esta información.</h6></u>
 </body>
 </html>

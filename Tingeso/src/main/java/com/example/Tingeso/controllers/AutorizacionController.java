@@ -2,7 +2,6 @@ package com.example.Tingeso.controllers;
 
 import com.example.Tingeso.entities.AutorizacionEntity;
 import com.example.Tingeso.services.AutorizacionService;
-import com.example.Tingeso.services.OficinaRRHHService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +19,10 @@ public class AutorizacionController {
     @Autowired
     private AutorizacionService autorizacionService;
 
-    @Autowired
-    private OficinaRRHHService oficina;
-
     @GetMapping("/nuevaAutorizacion")
     public String nuevaAutorizacion(Model model) throws ParseException {
         AutorizacionEntity autorizacion = new AutorizacionEntity();
         model.addAttribute("autorizacion", autorizacion);
-        oficina.calculoPlanilla("20.457.671-9");
         return "subirAutorizacion";
     }
 

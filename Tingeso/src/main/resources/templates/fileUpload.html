@@ -104,12 +104,13 @@
   <h1><b>Cargar el archivo de datos</b></h1>
   <form th:action="@{/fileUpload}" method="POST" enctype="multipart/form-data">
     <br>
-    <input type="file" class="form-control" name="file">
+    <input type="file" class="form-control" name="file" accept = ".txt">
     <br>
     <input class = "btn btn-primary"
           type="submit" value="Cargar el archivo a la Base de Datos">
   </form>
   <br>
+  <u><b> <h2 th:text="${mensaje}"></h2></b></u>
 </div>
 </div>
 <br>

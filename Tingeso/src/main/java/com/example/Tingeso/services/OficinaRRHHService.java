@@ -9,27 +9,37 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OficinaRRHHService {
 
     @Autowired
-    OficinaRRHHRepository oficinaRepository;
+    private OficinaRRHHRepository oficinaRepository;
 
     @Autowired
-    EmpleadoService empleadoService;
+    private EmpleadoService empleadoService;
     @Autowired
     private SubirDataService subirData;
     @Autowired
     private JustificativoService justificativo;
 
     @Autowired
-    private EmpleadoService empleado;
+    private AutorizacionService autorizacion;
+
+    public void reportePlanilla() throws ParseException {
+        oficinaRepository.deleteAll();
+        List<String>  listaRuts = subirData.obtenerRuts();
+        for(int i = 0; i < listaRuts.size(); i++){
+            calculoPlanilla(listaRuts.get(i));
+        }
+    }
 
     public void calculoPlanilla(String rut) throws ParseException {
-        EmpleadoEntity empleadoActual = empleado.findByRut(rut);
+        EmpleadoEntity empleadoActual = empleadoService.findByRut(rut);
         OficinaRRHHEntity empleado_reporte = new OficinaRRHHEntity();
         empleado_reporte.setRut(empleadoActual.getRut());
         empleado_reporte.setNombre_empleado(empleadoActual.getApellidos() + " " + empleadoActual.getNombres());
@@ -39,9 +49,22 @@ public class OficinaRRHHService {
         empleado_reporte.setBonificacion_dedicacion(calcularBonificacionDedicacion(empleado_reporte.getSueldo_mensual(), empleado_reporte.getDedicacion()));
         empleado_reporte.setHoras_extras(calcularMontoExtra(empleadoActual.getRut(), subirData.obtenerFechaRut(empleadoActual.getRut())));
         empleado_reporte.setDescuentos(comprobarDescuentos(empleadoActual.getRut(), subirData.obtenerFechaRut(empleadoActual.getRut())));
+        empleado_reporte.setSueldo_bruto(calcularSueldoBruto(empleado_reporte));
+        empleado_reporte.setPrevisional(empleado_reporte.getSueldo_bruto() * 0.1);
+        empleado_reporte.setSalud(empleado_reporte.getSueldo_bruto() * 0.08);
+        empleado_reporte.setSueldo_final(empleado_reporte.getSueldo_bruto() - empleado_reporte.getPrevisional() - empleado_reporte.getSalud());
         oficinaRepository.save(empleado_reporte);
     }
 
+    public double calcularSueldoBruto(OficinaRRHHEntity empleado){
+        double sueldoBruto = (empleado.getSueldo_mensual() + empleado.getBonificacion_dedicacion() + empleado.getHoras_extras() - empleado.getDescuentos());
+        if(sueldoBruto < 0.0){
+            return 0.0;
+        }
+        else{
+            return sueldoBruto;
+        }
+    }
     public double calcularMontoExtra(String rut, String fecha_inicial) throws ParseException {
         Calendar calendario = prepararCalendario(fecha_inicial);
         int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -51,8 +74,10 @@ public class OficinaRRHHService {
             if (!(comprobarFinesSemana(calendario))) {
                 String fecha_real = formatDate(calendario);
                 if(subirData.obtenerEspecifico2(rut, fecha_real) != null){
-                    String hora = subirData.obtenerEspecifico2(rut,fecha_real).getHora();
-                    montoExtra = montoExtra + extraCategoria(empleado.findByRut(rut).getCategoria(), contarHoras(hora));
+                    if(autorizacion.buscarAutorizacion(rut,fecha_real) != null){
+                        String hora = subirData.obtenerEspecifico2(rut,fecha_real).getHora();
+                        montoExtra = montoExtra + extraCategoria(empleadoService.findByRut(rut).getCategoria(), contarHoras(hora));
+                    }
                 }
             }
 
@@ -208,5 +233,10 @@ public class OficinaRRHHService {
             return descuentos;
         }
 
+    }
+
+
+    public ArrayList<OficinaRRHHEntity> obtenerData(){
+        return (ArrayList<OficinaRRHHEntity>) oficinaRepository.findAll();
     }
 }
