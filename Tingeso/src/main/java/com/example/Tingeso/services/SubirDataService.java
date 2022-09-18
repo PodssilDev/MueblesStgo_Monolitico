@@ -35,18 +35,23 @@ public class SubirDataService {
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
     }
     public String guardar(MultipartFile file){
-        if((!file.isEmpty()) && (file.getOriginalFilename().toUpperCase().equals("DATA.TXT"))){
-            try{
-                byte [] bytes = file.getBytes();
-                Path path  = Paths.get(carpeta + file.getOriginalFilename());
-                Files.write(path, bytes);
-                logg.info("Archivo guardado");
+        if(file != null){
+            if((!file.isEmpty()) && (file.getOriginalFilename().toUpperCase().equals("DATA.TXT"))){
+                try{
+                    byte [] bytes = file.getBytes();
+                    Path path  = Paths.get(carpeta + file.getOriginalFilename());
+                    Files.write(path, bytes);
+                    logg.info("Archivo guardado");
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
             }
-            catch (IOException e){
-                e.printStackTrace();
-            }
+            return "Archivo guardado con exito!";
         }
-        return "Archivo guardado con exito!";
+        else{
+            return "No se pudo guardar el archivo";
+        }
     }
 
     public String leerTxt(String direccion){
