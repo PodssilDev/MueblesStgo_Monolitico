@@ -15,10 +15,6 @@ public class EmpleadoService {
         return (ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
     }
 
-    public EmpleadoEntity obtenerEspecifico(){
-        return empleadoRepository.findByNameCustomQuery("asd");
-    }
-
     public String obtenerCategoria(String rut){
         return empleadoRepository.findCategory(rut);
     }

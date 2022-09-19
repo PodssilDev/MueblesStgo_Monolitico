@@ -90,8 +90,11 @@ public class OficinaRRHHService {
             return (25000 * contador);
         } else if (categoria.equals("B")) {
             return (20000 * contador);
-        } else{
+        } else if(categoria.equals("C")){
             return (10000 * contador);
+        }
+        else{
+            return 0.0;
         }
     }
 
@@ -115,6 +118,9 @@ public class OficinaRRHHService {
     }
 
     public double calcularBonificacionDedicacion(Integer sueldo_mensual, Integer dedicacion){
+        if(sueldo_mensual < 0){
+            return 0.0;
+        }
         if((dedicacion >= 5) && (dedicacion < 10)){
             return (sueldo_mensual * 0.05);
         } else if((dedicacion >= 10) && (dedicacion < 15)){
@@ -152,15 +158,6 @@ public class OficinaRRHHService {
         }
                 // Aqui se deberia comprobar si asistio a la hora
         return descuentos;
-    }
-    public void insertarDatos(String rut){
-        this.oficinaRepository.insertarDatos(rut);
-    }
-
-    public OficinaRRHHEntity insertarData(String rut){
-        OficinaRRHHEntity data = new OficinaRRHHEntity();
-        data.setRut(rut);
-        return this.oficinaRepository.save(data);
     }
 
     public Integer obtenerSueldo(String categoria){
