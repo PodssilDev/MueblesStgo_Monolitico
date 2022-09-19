@@ -1,4 +1,4 @@
-package com.example.Tingeso.entities;
+package com.example.tingeso.entities;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -8,15 +8,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "autorizacion")
+@Table(name = "data")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AutorizacionEntity {
+public class SubirDataEntity {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String rut;
+    private Integer ID;
     private String fecha;
+    private String hora;
+    private String rut;
+
 }

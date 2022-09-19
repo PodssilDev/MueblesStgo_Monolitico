@@ -1,7 +1,7 @@
-package com.example.Tingeso.services;
+package com.example.tingeso.services;
 
-import com.example.Tingeso.entities.JustificativoEntity;
-import com.example.Tingeso.repositories.JustificativoRepository;
+import com.example.tingeso.entities.JustificativoEntity;
+import com.example.tingeso.repositories.JustificativoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

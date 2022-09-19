@@ -1,7 +1,7 @@
-package com.example.Tingeso.services;
+package com.example.tingeso.services;
 
-import com.example.Tingeso.entities.AutorizacionEntity;
-import com.example.Tingeso.repositories.AutorizacionRepository;
+import com.example.tingeso.entities.AutorizacionEntity;
+import com.example.tingeso.repositories.AutorizacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.example.Tingeso.controllers;
+package com.example.tingeso.controllers;
 
-import com.example.Tingeso.entities.EmpleadoEntity;
-import com.example.Tingeso.services.EmpleadoService;
+import com.example.tingeso.entities.EmpleadoEntity;
+import com.example.tingeso.services.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

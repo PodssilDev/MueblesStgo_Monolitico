@@ -1,6 +1,6 @@
-package com.example.Tingeso.controllers;
+package com.example.tingeso.controllers;
 
-import com.example.Tingeso.services.AutorizacionService;
+import com.example.tingeso.services.AutorizacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

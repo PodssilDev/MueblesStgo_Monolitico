@@ -1,4 +1,4 @@
-package com.example.Tingeso;
+package com.example.tingeso;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
-package com.example.Tingeso.repositories;
+package com.example.tingeso.repositories;
 
-import com.example.Tingeso.entities.SubirDataEntity;
+import com.example.tingeso.entities.SubirDataEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

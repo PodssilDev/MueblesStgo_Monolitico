@@ -1,4 +1,4 @@
-package com.example.Tingeso.entities;
+package com.example.tingeso.entities;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;

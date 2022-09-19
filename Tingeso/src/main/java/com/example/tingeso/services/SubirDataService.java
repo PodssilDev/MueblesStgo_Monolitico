@@ -1,7 +1,7 @@
-package com.example.Tingeso.services;
+package com.example.tingeso.services;
 
-import com.example.Tingeso.entities.SubirDataEntity;
-import com.example.Tingeso.repositories.SubirDataRepository;
+import com.example.tingeso.entities.SubirDataEntity;
+import com.example.tingeso.repositories.SubirDataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

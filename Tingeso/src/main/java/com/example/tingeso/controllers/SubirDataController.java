@@ -1,7 +1,7 @@
-package com.example.Tingeso.controllers;
+package com.example.tingeso.controllers;
 
-import com.example.Tingeso.entities.SubirDataEntity;
-import com.example.Tingeso.services.SubirDataService;
+import com.example.tingeso.entities.SubirDataEntity;
+import com.example.tingeso.services.SubirDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

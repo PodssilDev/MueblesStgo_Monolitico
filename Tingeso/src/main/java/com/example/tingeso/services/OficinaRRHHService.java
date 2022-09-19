@@ -1,8 +1,8 @@
-package com.example.Tingeso.services;
+package com.example.tingeso.services;
 
-import com.example.Tingeso.entities.EmpleadoEntity;
-import com.example.Tingeso.entities.OficinaRRHHEntity;
-import com.example.Tingeso.repositories.OficinaRRHHRepository;
+import com.example.tingeso.entities.EmpleadoEntity;
+import com.example.tingeso.entities.OficinaRRHHEntity;
+import com.example.tingeso.repositories.OficinaRRHHRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
