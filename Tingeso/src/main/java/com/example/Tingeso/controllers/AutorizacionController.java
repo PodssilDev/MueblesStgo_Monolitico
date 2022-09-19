@@ -1,16 +1,14 @@
 package com.example.Tingeso.controllers;
 
-import com.example.Tingeso.entities.AutorizacionEntity;
 import com.example.Tingeso.services.AutorizacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.ParseException;
+import java.util.Map;
 
 @Controller
 @RequestMapping
@@ -19,17 +17,15 @@ public class AutorizacionController {
     @Autowired
     private AutorizacionService autorizacionService;
 
-    @GetMapping("/nuevaAutorizacion")
-    public String nuevaAutorizacion(Model model) throws ParseException {
-        AutorizacionEntity autorizacion = new AutorizacionEntity();
-        model.addAttribute("autorizacion", autorizacion);
+    @GetMapping("/subirAutorizacion")
+    public String nuevaAutorizacion(){
         return "subirAutorizacion";
     }
 
     @PostMapping("/guardarAutorizacion")
-    public String guardarAutorizacion(@ModelAttribute("autorizacion") AutorizacionEntity autorizacion){
-        autorizacionService.guardarAutorizacion(autorizacion);
-        return "redirect:/nuevaAutorizacion";
+    public String guardarAutorizacion(@RequestParam Map<String,String> allParams){
+        autorizacionService.guardarAutorizacion(allParams);
+        return "redirect:/subirAutorizacion";
     }
 
 

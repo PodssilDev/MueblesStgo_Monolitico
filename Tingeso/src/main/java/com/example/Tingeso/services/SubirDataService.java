@@ -45,7 +45,7 @@ public class SubirDataService {
                     logg.info("Archivo guardado");
                 }
                 catch (IOException e){
-                    e.printStackTrace();
+                    logg.error("ERROR", e);
                 }
             }
             return "Archivo guardado con exito!";
@@ -77,7 +77,7 @@ public class SubirDataService {
                 try{
                     bf.close();
                 }catch(IOException e){
-                    e.printStackTrace();
+                    logg.error("ERROR", e);
                 }
             }
         }

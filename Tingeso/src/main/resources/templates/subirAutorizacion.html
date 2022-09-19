@@ -98,18 +98,18 @@
   <a class="btn" href="/main"><button>Volver al menú principal</button></a>
 </header>
 <div class = "mainclass">
-  <form action="#" th:action="@{/guardarAutorizacion}" th:object="${autorizacion}"
+  <form  th:action="@{/guardarAutorizacion}"
         method="POST">
     <h1><b>Autorizaciones</b></h1>
     <div class="formcontainer">
       <hr/>
       <div class="container">
         <label><strong>Rut</strong></label>
-        <input type="text" th:field="*{rut}"
-               placeholder="Rut del empleado en formato xx.xxx.xxx-x " name="uname" required>
+        <input type="text" id = "rut"
+               placeholder="Rut del empleado en formato xx.xxx.xxx-x " name="rut" required>
         <label><strong>Fecha</strong></label>
-        <input type="text" th:field="*{fecha}"
-               placeholder="Fecha en formato AAAA/MM/DD" name="psw" required>
+        <input type="text" id = "fecha"
+               placeholder="Fecha en formato AAAA/MM/DD" name="fecha" required>
       </div>
       <button type="submit">Registrar Autorización</button>
     </div>

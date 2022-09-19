@@ -5,13 +5,18 @@ import com.example.Tingeso.repositories.JustificativoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class JustificativoService {
 
     @Autowired
     private JustificativoRepository justificativoRepository;
 
-    public void guardarJustificativo(JustificativoEntity justificativo){
+    public void guardarJustificativo(Map request){
+        JustificativoEntity justificativo = new JustificativoEntity();
+        justificativo.setRut(request.get("rut").toString());
+        justificativo.setFecha(request.get("fecha").toString());
         this.justificativoRepository.save(justificativo);
     }
 
