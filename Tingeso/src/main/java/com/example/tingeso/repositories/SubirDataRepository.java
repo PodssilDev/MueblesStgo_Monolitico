@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,4 +25,7 @@ public interface SubirDataRepository extends JpaRepository <SubirDataEntity, Int
 
     @Query(value = "select * from data as e where e.rut = :rut and e.fecha = :fecha order by e.hora desc limit 1",  nativeQuery = true)
     SubirDataEntity buscarData2(@Param("rut")String rut, @Param("fecha") String fecha);
+
+    @Query(value = "select *  from data as e where e.rut = :rut", nativeQuery = true)
+    ArrayList<SubirDataEntity> eliminarData(@Param("rut")String rut);
 }

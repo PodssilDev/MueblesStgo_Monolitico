@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-class AutorizacionService {
+public class AutorizacionService {
 
     @Autowired
     private AutorizacionRepository autorizacionRepository;

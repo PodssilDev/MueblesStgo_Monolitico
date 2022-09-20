@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class AutorizacionRepositoryTest {
+class AutorizacionRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;

@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +35,7 @@ public class SubirDataService {
 
     private String carpeta = "src/main/resources/cargas//";
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
+
 
     public ArrayList<SubirDataEntity> obtenerData(){
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
@@ -112,4 +118,67 @@ public class SubirDataService {
         return dataRepository.buscarFechaRut(rut);
     }
 
+    public void insertarData(String rut, String fechaInicial) throws ParseException {
+        boolean primer_ciclo = true;
+        Calendar calendario = prepararCalendario(fechaInicial);
+        int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+        for (int day = 1; day <= lastDay; day++) {
+            calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
+            if(!(comprobarFinesSemana(calendario))){
+                String fecha_real = formatDate(calendario);
+                SubirDataEntity data1 = new SubirDataEntity();
+                SubirDataEntity data2 = new SubirDataEntity();
+                data1.setRut(rut);
+                data2.setRut(rut);
+                data1.setFecha(fecha_real);
+                data2.setFecha(fecha_real);
+                if(primer_ciclo){
+                    data1.setHora("08:30");
+                    guardarData(data1);
+                    data2.setHora("20:00");
+                    guardarData(data2);
+                    primer_ciclo = false;
+                }
+                else{
+                    data1.setHora("08:00");
+                    guardarData(data1);
+                    data2.setHora("18:00");
+                    guardarData(data2);
+                }
+            }
+        }
+    }
+
+    private Calendar prepararCalendario(String fecha) throws ParseException {
+        Calendar calendario = Calendar.getInstance();
+        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
+        Date real_fecha = date1.parse(fecha);
+        calendario.setTime(real_fecha);
+        return calendario;
+    }
+    private Boolean comprobarFinesSemana(Calendar calendario){
+        DateFormat dayFormat = new SimpleDateFormat("EEE");
+        Date day_name = calendario.getTime();
+        String str_day_name = dayFormat.format(day_name);
+        if (str_day_name.equals("sáb") || str_day_name.equals("dom")) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private String formatDate(Calendar calendario){
+        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
+        String fecha = date1.format(calendario.getTime());
+        return fecha;
+    }
+
+    public void eliminarData(ArrayList<SubirDataEntity> datas){
+        dataRepository.deleteAll(datas);
+    }
+
+    public ArrayList<SubirDataEntity> obtenerData(String rut){
+        return dataRepository.eliminarData(rut);
+    }
 }

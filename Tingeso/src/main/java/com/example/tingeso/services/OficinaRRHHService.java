@@ -184,7 +184,7 @@ public class OficinaRRHHService {
         }
         return descuentos;
     }
-    private Boolean comprobarAtrasado(String hora_string) throws ParseException {
+    public Boolean comprobarAtrasado(String hora_string) throws ParseException {
         SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
         Date hora = dt.parse(hora_string);
         if(hora.after(dt.parse("09:10"))){
@@ -195,7 +195,7 @@ public class OficinaRRHHService {
         }
     }
 
-    private Calendar prepararCalendario(String fecha) throws ParseException {
+    public Calendar prepararCalendario(String fecha) throws ParseException {
         Calendar calendario = Calendar.getInstance();
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
         Date real_fecha = date1.parse(fecha);
@@ -203,7 +203,7 @@ public class OficinaRRHHService {
         return calendario;
     }
 
-    private Boolean comprobarFinesSemana(Calendar calendario){
+    public Boolean comprobarFinesSemana(Calendar calendario){
         DateFormat dayFormat = new SimpleDateFormat("EEE");
         Date day_name = calendario.getTime();
         String str_day_name = dayFormat.format(day_name);
@@ -215,13 +215,13 @@ public class OficinaRRHHService {
         }
     }
 
-    private String formatDate(Calendar calendario){
+    public String formatDate(Calendar calendario){
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
         String fecha = date1.format(calendario.getTime());
         return fecha;
     }
 
-    private double comprobarJustificativo(String rut, String fecha, double descuentos){
+    public double comprobarJustificativo(String rut, String fecha, double descuentos){
         int sueldo_mensual = obtenerSueldo(empleadoService.obtenerCategoria(rut));
         if (justificativo.buscarJustificativo(rut, fecha) != null) {
             return descuentos;
@@ -235,5 +235,13 @@ public class OficinaRRHHService {
 
     public ArrayList<OficinaRRHHEntity> obtenerData(){
         return (ArrayList<OficinaRRHHEntity>) oficinaRepository.findAll();
+    }
+
+    public OficinaRRHHEntity encontrarRut(String rut){
+        return oficinaRepository.findByRut(rut);
+    }
+
+    public void eliminarData(OficinaRRHHEntity reporte){
+        oficinaRepository.delete(reporte);
     }
 }
