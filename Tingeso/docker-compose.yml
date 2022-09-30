@@ -1,26 +1,26 @@
-version: '3.1'
-
+version: "3.8"
 services:
-  db:
-    image: 'mysql'
+  mysql-db:
+    image: mysql
     restart: always
+    volumes:
+      - ./data/db:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=tingesodb
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_PASSWORD=password
-  app:
-    image: 'tingeso-app1'
-    restart: on-failure
-    build:
-      context: "./"
-    container_name: app
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/tingesodb?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
-      - SPRING_DATASOURCE_DBNAME=tingesodb
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tingesodb
     ports:
-      - 8090:8090
+      - 33060:3306
+  app:
+    container_name: mueblesstgopep1
+    image: johnserrano159/mueblesstgopep1
+    ports:
+      - "8090:8090"
+    environment:
+      - DB_URL=jdbc:mysql://mysql-db:3306/tingesodb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql-db
