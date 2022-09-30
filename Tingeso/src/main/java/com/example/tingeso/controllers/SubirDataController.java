@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.ArrayList;
 
 @Controller
@@ -24,12 +25,13 @@ public class SubirDataController {
     public String main() {
         return "fileUpload";
     }
+    private String separador = File.pathSeparator;
 
     @PostMapping("/fileUpload")
     public String upload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         subirData.guardar(file);
         redirectAttributes.addFlashAttribute("mensaje", "¡Archivo cargado correctamente!");
-        subirData.leerTxt("src/main/resources/cargas//Data.txt");
+        subirData.leerTxt("src"+separador+"main"+separador+"resources"+separador+"cargas"+separador+"Data.txt");
         return "redirect:/fileUpload";
     }
 

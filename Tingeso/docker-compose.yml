@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=tingesodb
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+  app:
+    image: 'tingeso-app1'
+    restart: on-failure
+    build:
+      context: "./"
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/tingesodb?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_DBNAME=tingesodb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+    ports:
+      - 8090:8090

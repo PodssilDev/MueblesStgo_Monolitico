@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,7 +34,8 @@ public class SubirDataService {
     @Autowired
     private JustificativoService justificativos;
 
-    private String carpeta = "src/main/resources/cargas//";
+    private String separador = File.pathSeparator;
+    private String carpeta = "src"+separador+"main"+separador+"resources"+separador+"cargas" + separador;
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
 
 
