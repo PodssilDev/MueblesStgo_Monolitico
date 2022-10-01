@@ -9,10 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-
+@SpringBootTest
 class OficinaRRHHTest {
-
-    OficinaRRHHService oficinaService = new OficinaRRHHService();
+    
+    @Autowired
+    OficinaRRHHService oficinaService;
 
 
     @Test
