@@ -22,8 +22,8 @@ class OficinaRRHHTest {
     @Autowired
     OficinaRRHHService oficinaService;
 
-    @Autowired
-    EmpleadoRepository empleadoRepository;
+    //@Autowired
+    //EmpleadoRepository empleadoRepository;
 
     @Autowired
     SubirDataService data;

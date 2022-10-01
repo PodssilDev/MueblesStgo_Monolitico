@@ -16,8 +16,8 @@ class AutorizacionRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
-    @Autowired
-    private AutorizacionRepository autorizacionRepository;
+    //@Autowired
+    //private AutorizacionRepository autorizacionRepository;
     /*
     @Test
     void testFindBy(){
