@@ -4,14 +4,18 @@ import com.example.tingeso.services.OficinaRRHHService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
+
+import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+@SpringBootTest
 class OficinaRRHHTest {
 
-    OficinaRRHHService oficinaService = new OficinaRRHHService();
+    @Autowired
+    OficinaRRHHService oficinaService;
 
 
     @Test
@@ -51,5 +55,12 @@ class OficinaRRHHTest {
 
         bonificacion = oficinaService.calcularBonificacionDedicacion(800000, 0);
         assertEquals(0.0, bonificacion, 0.0);
+    }
+
+    @Test
+    void testContarHoras() throws ParseException {
+        String hora = "20:00";
+        Integer contador = oficinaService.contarHoras(hora);
+        assertEquals(2, contador, 0.0);
     }
 }
