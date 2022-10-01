@@ -16,7 +16,7 @@ public class JustificacionTest {
 
     @Autowired
     JustificativoService justificacion;
-
+    /*
     @Test
     void testInsertarJustificativo(){
         Map<String,String> ourMap = new HashMap<String,String>();
@@ -24,4 +24,5 @@ public class JustificacionTest {
         //justificacion.guardarJustificativo();
 
     }
+    */
 }

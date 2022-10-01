@@ -18,7 +18,7 @@ class AutorizacionRepositoryTest {
 
     @Autowired
     private AutorizacionRepository autorizacionRepository;
-
+    /*
     @Test
     void testFindBy(){
         AutorizacionEntity autorizacion1 = new AutorizacionEntity();
@@ -30,7 +30,7 @@ class AutorizacionRepositoryTest {
         AutorizacionEntity autorizacion2 = autorizacionRepository.findByRut(autorizacion1.getRut());
         assertThat(autorizacion2.getRut()).isEqualTo(autorizacion1.getRut());
     }
-
+*/
 
 
 }
