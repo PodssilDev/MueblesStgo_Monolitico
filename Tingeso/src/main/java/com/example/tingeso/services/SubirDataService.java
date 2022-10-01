@@ -2,11 +2,13 @@ package com.example.tingeso.services;
 
 import com.example.tingeso.entities.SubirDataEntity;
 import com.example.tingeso.repositories.SubirDataRepository;
+import lombok.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +40,7 @@ public class SubirDataService {
     private String carpeta = "src"+separador+"main"+separador+"resources"+separador+"cargas" + separador;
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
 
-
+    @Generated
     public ArrayList<SubirDataEntity> obtenerData(){
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
     }
