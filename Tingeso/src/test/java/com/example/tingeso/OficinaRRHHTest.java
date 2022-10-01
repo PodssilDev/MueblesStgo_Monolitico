@@ -75,7 +75,6 @@ class OficinaRRHHTest {
         Integer contador = oficinaService.contarHoras(hora);
         assertEquals(2, contador, 0.0);
     }
-    /*
     @Test
     void testMetodosCalculos() throws ParseException {
         EmpleadoEntity empleado = new EmpleadoEntity();
@@ -103,5 +102,4 @@ class OficinaRRHHTest {
         data.eliminarData(data.obtenerData(empleado.getRut()));
         empleadoRepository.delete(empleado);
     }
-    */
 }
