@@ -10,10 +10,11 @@ spring:
       dialect: MySQL8Dialect
       ddl-auto: update
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/tingesodb
     #username: root
     #password: password
     url: ${DB_URL}
+    dbname: ${DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DTSRC}
