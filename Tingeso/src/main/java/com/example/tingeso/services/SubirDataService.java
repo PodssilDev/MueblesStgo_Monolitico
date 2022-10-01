@@ -64,7 +64,7 @@ public class SubirDataService {
             return "No se pudo guardar el archivo";
         }
     }
-
+    @Generated
     public String leerTxt(String direccion){
         String texto = "";
         BufferedReader bf = null;
@@ -122,6 +122,7 @@ public class SubirDataService {
         return dataRepository.buscarFechaRut(rut);
     }
 
+    @Generated
     public void insertarData(String rut, String fechaInicial) throws ParseException {
         boolean primer_ciclo = true;
         Calendar calendario = prepararCalendario(fechaInicial);
