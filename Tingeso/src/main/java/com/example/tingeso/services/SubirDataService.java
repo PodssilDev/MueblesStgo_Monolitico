@@ -122,7 +122,6 @@ public class SubirDataService {
         return dataRepository.buscarFechaRut(rut);
     }
 
-    @Generated
     public void insertarData(String rut, String fechaInicial) throws ParseException {
         boolean primer_ciclo = true;
         Calendar calendario = prepararCalendario(fechaInicial);
