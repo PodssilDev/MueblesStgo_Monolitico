@@ -204,10 +204,8 @@ public class OficinaRRHHService {
     }
 
     public Boolean comprobarFinesSemana(Calendar calendario){
-        DateFormat dayFormat = new SimpleDateFormat("EEE");
-        Date day_name = calendario.getTime();
-        String str_day_name = dayFormat.format(day_name);
-        if (str_day_name.equals("sáb") || str_day_name.equals("dom")) {
+        int dia = calendario.get(Calendar.DAY_OF_WEEK);
+        if (dia == Calendar.SATURDAY || dia == Calendar.SUNDAY) {
             return true;
         }
         else{
