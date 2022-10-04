@@ -24,6 +24,10 @@ public class JustificativoService {
         return this.justificativoRepository.buscarJustificativo(rut, fecha);
     }
 
+    public void eliminarJustificativo(JustificativoEntity justificativo){
+        this.justificativoRepository.delete(justificativo);
+    }
+
     public void eliminarJustificativos(){
         this.justificativoRepository.deleteAll();
     }
