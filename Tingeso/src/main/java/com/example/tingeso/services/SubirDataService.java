@@ -153,7 +153,7 @@ public class SubirDataService {
             }
         }
     }
-
+    @Generated
     private Calendar prepararCalendario(String fecha) throws ParseException {
         Calendar calendario = Calendar.getInstance();
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
@@ -161,6 +161,7 @@ public class SubirDataService {
         calendario.setTime(real_fecha);
         return calendario;
     }
+    @Generated
     private Boolean comprobarFinesSemana(Calendar calendario){
         DateFormat dayFormat = new SimpleDateFormat("EEE");
         Date day_name = calendario.getTime();
@@ -172,7 +173,7 @@ public class SubirDataService {
             return false;
         }
     }
-
+    @Generated
     private String formatDate(Calendar calendario){
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
         String fecha = date1.format(calendario.getTime());

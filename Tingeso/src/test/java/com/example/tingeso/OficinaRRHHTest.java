@@ -102,4 +102,23 @@ class OficinaRRHHTest {
         data.eliminarData(data.obtenerData(empleado.getRut()));
         empleadoRepository.delete(empleado);
     }
+
+    @Test
+    void testCalculoFull() throws ParseException {
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setRut("20.942.821-8");
+        empleado.setCategoria("B");
+        empleado.setNombres("JOHN PATRICIO");
+        empleado.setApellidos("SERRANO CARRASCO");
+        empleado.setFecha_ingreso("2010/06/12");
+        empleadoRepository.save(empleado);
+        data.insertarData(empleado.getRut(), "2022/06/01");
+        OficinaRRHHEntity empleado_reporte = new OficinaRRHHEntity();
+        oficinaService.calculoPlanilla(empleado.getRut());
+        double sueldo = oficinaService.encontrarRut(empleado.getRut()).getSueldo_final();
+        assertEquals(1033200.0,  sueldo, 0.0);
+        oficinaService.eliminarData(oficinaService.encontrarRut(empleado.getRut()));
+        empleadoRepository.delete(empleado);
+
+    }
 }
