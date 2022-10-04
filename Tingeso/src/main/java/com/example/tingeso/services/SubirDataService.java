@@ -50,7 +50,7 @@ public class SubirDataService {
             if((!file.isEmpty()) && (filename.toUpperCase().equals("DATA.TXT"))){
                 try{
                     byte [] bytes = file.getBytes();
-                    Path path  = Paths.get(carpeta + file.getOriginalFilename());
+                    Path path  = Paths.get(file.getOriginalFilename());
                     Files.write(path, bytes);
                     logg.info("Archivo guardado");
                 }
@@ -80,6 +80,7 @@ public class SubirDataService {
                 temp = temp + "\n" + bfRead;
             }
             texto = temp;
+            System.out.println("Archivo leido exitosamente");
         }catch(Exception e){
             System.err.println("No se encontro el archivo");
         }finally{
