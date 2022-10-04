@@ -27,6 +27,4 @@ public class AutorizacionController {
         autorizacionService.guardarAutorizacion(allParams);
         return "redirect:/subirAutorizacion";
     }
-
-
 }

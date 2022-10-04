@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AutorizacionRepository extends JpaRepository<AutorizacionEntity,Integer> {
 
-    public AutorizacionEntity findByRut(String rut);
-
     @Query(value = "select * from autorizacion as e where e.rut = :rut and e.fecha =:fecha limit 1",
             nativeQuery = true)
     AutorizacionEntity  buscarAutorizacion(@Param("rut") String rut, @Param("fecha") String fecha);

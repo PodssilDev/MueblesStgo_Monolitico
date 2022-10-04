@@ -25,5 +25,4 @@ public class OficinaRRHHController {
         model.addAttribute("reporte", reporte);
         return "reportePlanilla";
     }
-
 }

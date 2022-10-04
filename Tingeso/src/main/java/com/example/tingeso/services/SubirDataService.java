@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +26,7 @@ import java.util.List;
 
 @Service
 public class SubirDataService {
+
     @Autowired
     private SubirDataRepository dataRepository;
 
@@ -36,8 +36,6 @@ public class SubirDataService {
     @Autowired
     private JustificativoService justificativos;
 
-    private String separador = File.pathSeparator;
-    private String carpeta = "src"+separador+"main"+separador+"resources"+separador+"cargas" + separador;
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
 
     public ArrayList<SubirDataEntity> obtenerData(){
@@ -67,7 +65,7 @@ public class SubirDataService {
     }
 
     @Generated
-    public String leerTxt(String direccion){
+    public void leerTxt(String direccion){
         String texto = "";
         BufferedReader bf = null;
         dataRepository.deleteAll();
@@ -94,11 +92,10 @@ public class SubirDataService {
                 }
             }
         }
-        return texto;
     }
 
-    public SubirDataEntity guardarData(SubirDataEntity data){
-        return dataRepository.save(data);
+    public void guardarData(SubirDataEntity data){
+        dataRepository.save(data);
     }
 
     public void guardarDataDB(String fecha, String hora, String rut){
@@ -155,31 +152,23 @@ public class SubirDataService {
             }
         }
     }
-    @Generated
-    private Calendar prepararCalendario(String fecha) throws ParseException {
+
+    public Calendar prepararCalendario(String fecha) throws ParseException {
         Calendar calendario = Calendar.getInstance();
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
         Date real_fecha = date1.parse(fecha);
         calendario.setTime(real_fecha);
         return calendario;
     }
-    @Generated
-    private Boolean comprobarFinesSemana(Calendar calendario){
-        DateFormat dayFormat = new SimpleDateFormat("EEE");
-        Date day_name = calendario.getTime();
-        String str_day_name = dayFormat.format(day_name);
-        if (str_day_name.equals("sáb") || str_day_name.equals("dom")) {
-            return true;
-        }
-        else{
-            return false;
-        }
+
+    public Boolean comprobarFinesSemana(Calendar calendario){
+        int dia = calendario.get(Calendar.DAY_OF_WEEK);
+        return dia == Calendar.SATURDAY || dia == Calendar.SUNDAY;
     }
-    @Generated
-    private String formatDate(Calendar calendario){
+
+    public String formatDate(Calendar calendario){
         DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
-        String fecha = date1.format(calendario.getTime());
-        return fecha;
+        return date1.format(calendario.getTime());
     }
 
     public void eliminarData(ArrayList<SubirDataEntity> datas){

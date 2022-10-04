@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmpleadoRepository extends JpaRepository<EmpleadoEntity, String>{
+
     @Query("select e from EmpleadoEntity e where e.nombres = :nombres")
     EmpleadoEntity findByNameCustomQuery(@Param("nombres") String nombres);
 

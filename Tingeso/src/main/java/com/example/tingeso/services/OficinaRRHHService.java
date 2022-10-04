@@ -6,7 +6,6 @@ import com.example.tingeso.repositories.OficinaRRHHRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,8 +21,10 @@ public class OficinaRRHHService {
 
     @Autowired
     private EmpleadoService empleadoService;
+
     @Autowired
     private SubirDataService subirData;
+
     @Autowired
     private JustificativoService justificativo;
 
@@ -33,8 +34,8 @@ public class OficinaRRHHService {
     public void reportePlanilla() throws ParseException {
         oficinaRepository.deleteAll();
         List<String>  listaRuts = subirData.obtenerRuts();
-        for(int i = 0; i < listaRuts.size(); i++){
-            calculoPlanilla(listaRuts.get(i));
+        for (String listaRut : listaRuts) {
+            calculoPlanilla(listaRut);
         }
     }
 
@@ -58,21 +59,16 @@ public class OficinaRRHHService {
 
     public double calcularSueldoBruto(OficinaRRHHEntity empleado){
         double sueldoBruto = (empleado.getSueldo_mensual() + empleado.getBonificacion_dedicacion() + empleado.getHoras_extras() - empleado.getDescuentos());
-        if(sueldoBruto < 0.0){
-            return 0.0;
-        }
-        else{
-            return sueldoBruto;
-        }
+        return Math.max(sueldoBruto, 0.0);
     }
     public double calcularMontoExtra(String rut, String fecha_inicial) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha_inicial);
+        Calendar calendario = subirData.prepararCalendario(fecha_inicial);
         int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
         double montoExtra = 0.0;
         for(int day = 1; day<= lastDay; day++) {
             calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
-            if (!(comprobarFinesSemana(calendario))) {
-                String fecha_real = formatDate(calendario);
+            if (!(subirData.comprobarFinesSemana(calendario))) {
+                String fecha_real = subirData.formatDate(calendario);
                 if(subirData.obtenerEspecifico2(rut, fecha_real) != null){
                     if(autorizacion.buscarAutorizacion(rut,fecha_real) != null){
                         String hora = subirData.obtenerEspecifico2(rut,fecha_real).getHora();
@@ -80,21 +76,20 @@ public class OficinaRRHHService {
                     }
                 }
             }
-
         }
         return montoExtra;
     }
 
     public double extraCategoria(String categoria, Integer contador){
-        if(categoria.equals("A")){
-            return (25000 * contador);
-        } else if (categoria.equals("B")) {
-            return (20000 * contador);
-        } else if(categoria.equals("C")){
-            return (10000 * contador);
-        }
-        else{
-            return 0.0;
+        switch (categoria) {
+            case "A":
+                return (25000 * contador);
+            case "B":
+                return (20000 * contador);
+            case "C":
+                return (10000 * contador);
+            default:
+                return 0.0;
         }
     }
 
@@ -109,8 +104,8 @@ public class OficinaRRHHService {
     }
 
     public Integer calcularDedicacion(String fecha_inicio, String fecha_temporal) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha_inicio);
-        Calendar calendario2 = prepararCalendario(fecha_temporal);
+        Calendar calendario = subirData.prepararCalendario(fecha_inicio);
+        Calendar calendario2 = subirData.prepararCalendario(fecha_temporal);
         calendario2.set(calendario2.get(Calendar.YEAR), calendario2.get(Calendar.MONTH), calendario2.getActualMaximum(Calendar.DAY_OF_MONTH));
         Date date1 = calendario.getTime();
         Date date2 =calendario2.getTime();
@@ -137,13 +132,13 @@ public class OficinaRRHHService {
     }
 
     public double comprobarDescuentos(String rut, String fecha) throws ParseException {
-        Calendar calendario = prepararCalendario(fecha);
+        Calendar calendario = subirData.prepararCalendario(fecha);
         int lastDay = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
         double descuentos = 0.0;
         for(int day = 1; day<= lastDay; day++) {
             calendario.set(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), day);
-            if (!(comprobarFinesSemana(calendario))){
-                String fecha_real = formatDate(calendario);
+            if (!(subirData.comprobarFinesSemana(calendario))){
+                String fecha_real = subirData.formatDate(calendario);
                 if (subirData.obtenerEspecifico(rut, fecha_real) == null){ // NO hay registro del rut y fecha en DATA TXT
                     descuentos = comprobarJustificativo(rut, fecha_real, descuentos);
                 }
@@ -156,7 +151,6 @@ public class OficinaRRHHService {
                 }
             }
         }
-                // Aqui se deberia comprobar si asistio a la hora
         return descuentos;
     }
 
@@ -187,36 +181,7 @@ public class OficinaRRHHService {
     public Boolean comprobarAtrasado(String hora_string) throws ParseException {
         SimpleDateFormat dt = new SimpleDateFormat("hh:mm");
         Date hora = dt.parse(hora_string);
-        if(hora.after(dt.parse("09:10"))){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public Calendar prepararCalendario(String fecha) throws ParseException {
-        Calendar calendario = Calendar.getInstance();
-        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
-        Date real_fecha = date1.parse(fecha);
-        calendario.setTime(real_fecha);
-        return calendario;
-    }
-
-    public Boolean comprobarFinesSemana(Calendar calendario){
-        int dia = calendario.get(Calendar.DAY_OF_WEEK);
-        if (dia == Calendar.SATURDAY || dia == Calendar.SUNDAY) {
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public String formatDate(Calendar calendario){
-        DateFormat date1=new SimpleDateFormat("yyyy/MM/dd");
-        String fecha = date1.format(calendario.getTime());
-        return fecha;
+        return hora.after(dt.parse("09:10"));
     }
 
     public double comprobarJustificativo(String rut, String fecha, double descuentos){
@@ -227,9 +192,7 @@ public class OficinaRRHHService {
             descuentos = descuentos + (sueldo_mensual * 0.15);
             return descuentos;
         }
-
     }
-
 
     public ArrayList<OficinaRRHHEntity> obtenerData(){
         return (ArrayList<OficinaRRHHEntity>) oficinaRepository.findAll();

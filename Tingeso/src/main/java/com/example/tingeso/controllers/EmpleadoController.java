@@ -14,11 +14,12 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping
 public class EmpleadoController {
+
     @Autowired
     private EmpleadoService empleadoService;
 
     @GetMapping("/lista")
-    public String listar(Model model) throws ParseException {
+    public String listar(Model model){
         ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
         model.addAttribute("empleados",empleados);
         return "index";

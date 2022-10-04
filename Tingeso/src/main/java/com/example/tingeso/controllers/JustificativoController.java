@@ -26,5 +26,4 @@ public class JustificativoController {
         justificativoService.guardarJustificativo(allParams);
         return "redirect:/subirJustificativo";
     }
-
 }

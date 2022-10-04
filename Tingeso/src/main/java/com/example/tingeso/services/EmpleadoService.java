@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 @Service
 public class EmpleadoService {
+
     @Autowired
     EmpleadoRepository empleadoRepository;
 
@@ -23,5 +24,4 @@ public class EmpleadoService {
     public EmpleadoEntity findByRut(String rut){
         return empleadoRepository.findByRut(rut);
     }
-
 }
