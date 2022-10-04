@@ -15,6 +15,11 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+	<sonar.exclusions>
+		src/main/java/com/example/tingeso/entities/*,
+		src/main/java/com/example/tingeso/controllers/*,
+		src/main/java/com/example/tingeso/repositories/*
+	</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
