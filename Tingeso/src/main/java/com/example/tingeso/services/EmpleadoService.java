@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class EmpleadoService {
     @Autowired
     EmpleadoRepository empleadoRepository;
+
     public ArrayList<EmpleadoEntity> obtenerEmpleados(){
         return (ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
     }

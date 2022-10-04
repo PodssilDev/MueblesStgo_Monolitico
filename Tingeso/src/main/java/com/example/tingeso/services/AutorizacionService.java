@@ -24,6 +24,10 @@ public class AutorizacionService {
         return this.autorizacionRepository.buscarAutorizacion(rut, fecha);
     }
 
+    public void eliminarAutorizacion(AutorizacionEntity autorizacion){
+        this.autorizacionRepository.delete(autorizacion);
+    }
+
     public void eliminarAutorizaciones(){
         this.autorizacionRepository.deleteAll();
     }
