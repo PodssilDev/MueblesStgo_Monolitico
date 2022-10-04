@@ -40,10 +40,11 @@ public class SubirDataService {
     private String carpeta = "src"+separador+"main"+separador+"resources"+separador+"cargas" + separador;
     private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
 
-    @Generated
     public ArrayList<SubirDataEntity> obtenerData(){
         return (ArrayList<SubirDataEntity>) dataRepository.findAll();
     }
+
+    @Generated
     public String guardar(MultipartFile file){
         String filename = file.getOriginalFilename();
         if(filename != null){
@@ -64,6 +65,7 @@ public class SubirDataService {
             return "No se pudo guardar el archivo";
         }
     }
+
     @Generated
     public String leerTxt(String direccion){
         String texto = "";
