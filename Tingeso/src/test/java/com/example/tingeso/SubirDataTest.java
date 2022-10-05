@@ -1,6 +1,7 @@
 package com.example.tingeso;
 
 import com.example.tingeso.entities.SubirDataEntity;
+import com.example.tingeso.repositories.SubirDataRepository;
 import com.example.tingeso.services.SubirDataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class SubirDataTest {
 
     @Autowired
     SubirDataService subirData;
+
+    @Autowired
+    SubirDataRepository dataRepository;
 
     @Test
     void testGuardarDataDB(){
@@ -32,5 +37,25 @@ class SubirDataTest {
         subirData.eliminarData(subirData.obtenerData(newData.getRut()));
     }
 
+    @Test
+    void testObtenerData(){
+        SubirDataEntity newData = new SubirDataEntity();
+        newData.setRut("20.999.123-8");
+        newData.setFecha("2025/12/13");
+        newData.setHora("08:30");
+        dataRepository.save(newData);
+        assertNotNull(subirData.obtenerData());
+        dataRepository.delete(newData);
+    }
 
+    @Test
+    void testObtenerRuts(){
+        SubirDataEntity newData = new SubirDataEntity();
+        newData.setRut("20.324.158-8");
+        newData.setFecha("2020/03/30");
+        newData.setHora("18:30");
+        dataRepository.save(newData);
+        assertNotNull(subirData.obtenerRuts());
+        dataRepository.delete(newData);
+    }
 }

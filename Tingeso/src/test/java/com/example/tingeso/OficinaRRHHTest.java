@@ -3,17 +3,18 @@ package com.example.tingeso;
 import com.example.tingeso.entities.EmpleadoEntity;
 import com.example.tingeso.entities.OficinaRRHHEntity;
 import com.example.tingeso.repositories.EmpleadoRepository;
+import com.example.tingeso.repositories.OficinaRRHHRepository;
+import com.example.tingeso.repositories.SubirDataRepository;
 import com.example.tingeso.services.OficinaRRHHService;
 import com.example.tingeso.services.SubirDataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-
 
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class OficinaRRHHTest {
@@ -21,6 +22,8 @@ class OficinaRRHHTest {
     @Autowired
     OficinaRRHHService oficinaService;
 
+    @Autowired
+    OficinaRRHHRepository oficinaRepository;
 
     @Autowired
     EmpleadoRepository empleadoRepository;
@@ -28,7 +31,8 @@ class OficinaRRHHTest {
     @Autowired
     SubirDataService data;
 
-
+    @Autowired
+    SubirDataRepository dataRepository;
 
     @Test
     void testExtraCategoria(){
@@ -119,6 +123,32 @@ class OficinaRRHHTest {
         assertEquals(1033200.0,  sueldo, 0.0);
         oficinaService.eliminarData(oficinaService.encontrarRut(empleado.getRut()));
         empleadoRepository.delete(empleado);
+        data.eliminarData(data.obtenerData(empleado.getRut()));
+    }
 
+    @Test
+    void testReportePlanilla() throws ParseException{
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setRut("20.342.128-5");
+        empleado.setCategoria("A");
+        empleado.setNombres("KRIS");
+        empleado.setApellidos("DREEMUR");
+        empleado.setFecha_ingreso("2018/10/31");
+        empleadoRepository.save(empleado);
+        data.insertarData(empleado.getRut(), "2022/06/01");
+        oficinaService.reportePlanilla();
+        OficinaRRHHEntity empleadoReporte = oficinaRepository.findByRut("20.342.128-5");
+        assertEquals(0.0, empleadoReporte.getBonificacion_dedicacion(), 0.0);
+        empleadoRepository.delete(empleado);
+        oficinaRepository.delete(empleadoReporte);
+        data.eliminarData(data.obtenerData(empleado.getRut()));
+    }
+
+    @Test
+    void testObtenerReporte(){
+        OficinaRRHHEntity reporteEmpleado = new OficinaRRHHEntity();
+        reporteEmpleado.setRut("20.432.128-5");
+        oficinaRepository.save(reporteEmpleado);
+        assertNotNull(oficinaService.obtenerData());
     }
 }
