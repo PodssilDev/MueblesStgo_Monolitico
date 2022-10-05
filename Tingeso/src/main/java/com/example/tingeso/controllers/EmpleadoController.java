@@ -19,13 +19,9 @@ public class EmpleadoController {
     private EmpleadoService empleadoService;
 
     @GetMapping("/lista")
-    public String listar(Model model){
-        ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
-        model.addAttribute("empleados",empleados);
+    public String listar(Model model) {
+        ArrayList<EmpleadoEntity> empleados = empleadoService.obtenerEmpleados();
+        model.addAttribute("empleados", empleados);
         return "index";
-    }
-    @GetMapping("/main")
-    public String mainView(){
-        return "main";
     }
 }
