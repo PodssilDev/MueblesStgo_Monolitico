@@ -1,8 +1,10 @@
 package com.example.tingeso;
 
 import com.example.tingeso.entities.EmpleadoEntity;
+import com.example.tingeso.entities.JustificativoEntity;
 import com.example.tingeso.entities.OficinaRRHHEntity;
 import com.example.tingeso.repositories.EmpleadoRepository;
+import com.example.tingeso.repositories.JustificativoRepository;
 import com.example.tingeso.repositories.OficinaRRHHRepository;
 import com.example.tingeso.repositories.SubirDataRepository;
 import com.example.tingeso.services.OficinaRRHHService;
@@ -34,42 +36,72 @@ class OficinaRRHHTest {
     @Autowired
     SubirDataRepository dataRepository;
 
+    @Autowired
+    JustificativoRepository justificativoRepository;
+
     @Test
-    void testExtraCategoria(){
+    void testExtraCategoriaA(){
+        double sueldo = oficinaService.extraCategoria("A", 99);
+        assertEquals(2475000.0, sueldo, 0.0);
+    }
+
+    @Test
+    void testExtraCategoriaB(){
         double sueldo = oficinaService.extraCategoria("B", 10);
         assertEquals(200000.0,sueldo,0.0);
+    }
 
-        sueldo = oficinaService.extraCategoria("C", 5);
+    @Test
+    void testExtraCategoriaC(){
+        double sueldo = oficinaService.extraCategoria("C", 5);
         assertEquals(50000.0, sueldo, 0.0);
+    }
 
-        sueldo = oficinaService.extraCategoria("A", 99);
-        assertEquals(2475000.0,sueldo,0.0);
-
-        sueldo = oficinaService.extraCategoria("X", 3);
+    @Test
+    void testExtraCategoriaX(){
+        double sueldo = oficinaService.extraCategoria("X", 3);
         assertEquals(0.0, sueldo, 0.0);
     }
 
     @Test
-    void testCalcularBonificacionDedicacion() {
+    void testCalcularBonificacionDedicacion1() {
         double bonificacion = oficinaService.calcularBonificacionDedicacion(1700000, 8);
         assertEquals(85000.0, bonificacion, 0.0);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(1200000, 12);
+    @Test
+    void testCalcularBonificacionDedicacion2(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(1200000, 12);
         assertEquals(96000.0, bonificacion, 0.0);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(800000, 18);
+    @Test
+    void testCalcularBonificacionDedicacion3(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(800000, 18);
         assertEquals(88000.0, bonificacion, 0.0);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(1700000, 21);
+    @Test
+    void testCalcularBonificacionDedicacion4(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(1700000, 21);
         assertEquals(238000.0, bonificacion, 0.1);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(1200000, 28);
+    @Test
+    void testCalcularBonificacionDedicacion5(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(1200000, 28);
         assertEquals(204000.0, bonificacion, 0.1);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(-10000, 2);
+    @Test
+    void testCalcularBonificacionDedicacion6(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(-10000, 2);
         assertEquals(0.0, bonificacion, 0.0);
+    }
 
-        bonificacion = oficinaService.calcularBonificacionDedicacion(800000, 0);
+    @Test
+    void testCalcularBonificacionDedicacion7(){
+        double bonificacion = oficinaService.calcularBonificacionDedicacion(800000, 0);
         assertEquals(0.0, bonificacion, 0.0);
     }
 
@@ -79,6 +111,7 @@ class OficinaRRHHTest {
         Integer contador = oficinaService.contarHoras(hora);
         assertEquals(2, contador, 0.0);
     }
+
     @Test
     void testMetodosCalculos() throws ParseException {
         EmpleadoEntity empleado = new EmpleadoEntity();
@@ -117,7 +150,6 @@ class OficinaRRHHTest {
         empleado.setFecha_ingreso("2010/06/12");
         empleadoRepository.save(empleado);
         data.insertarData(empleado.getRut(), "2022/06/01");
-        OficinaRRHHEntity empleado_reporte = new OficinaRRHHEntity();
         oficinaService.calculoPlanilla(empleado.getRut());
         double sueldo = oficinaService.encontrarRut(empleado.getRut()).getSueldo_final();
         assertEquals(1033200.0,  sueldo, 0.0);
@@ -150,5 +182,36 @@ class OficinaRRHHTest {
         reporteEmpleado.setRut("20.432.128-5");
         oficinaRepository.save(reporteEmpleado);
         assertNotNull(oficinaService.obtenerData());
+    }
+
+    @Test
+    void testComprobarJustificativo(){
+        JustificativoEntity justificativo = new JustificativoEntity();
+        justificativo.setFecha("2022/10/04");
+        justificativo.setRut("20.876.231-1");
+        justificativoRepository.save(justificativo);
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setRut("20.876.231-1");
+        empleado.setCategoria("C");
+        empleado.setNombres("ALCIDES");
+        empleado.setApellidos("QUISPE");
+        empleado.setFecha_nacimiento("1990/01/03");
+        empleado.setFecha_ingreso("2019/10/31");
+        empleadoRepository.save(empleado);
+        double descuento = oficinaService.comprobarJustificativo("20.876.231-1", "2022/10/04", 0.0);
+        assertEquals(0.0, descuento, 0.0);
+        empleadoRepository.delete(empleado);
+        justificativoRepository.delete(justificativo);
+    }
+
+    @Test
+    void testComprobarJustificativo2(){
+        EmpleadoEntity empleado = new EmpleadoEntity();
+        empleado.setRut("20.876.231-1");
+        empleado.setCategoria("C");
+        empleadoRepository.save(empleado);
+        double descuento = oficinaService.comprobarJustificativo("20.876.231-1", "2022/10/18", 0.0);
+        assertEquals(120000.0, descuento, 0.0);
+        empleadoRepository.delete(empleado);
     }
 }
