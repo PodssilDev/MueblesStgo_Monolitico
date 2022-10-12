@@ -3,13 +3,14 @@
 * Autor: John Serrano
 * Sección: 13319-0-A-1
 * Profesor: Alcides Quispe
+* Nota después de la evaluación: 7.0/7.0
 
 ## Descripción
 En este repositorio se encuentra la aplicación monolítica desarrollada para la PEP 1 de Técnicas de Ingeniería de Software en 2022. La aplicación esta desarrollada principalmente en Java, utilizando [SpringBoot](https://start.spring.io) y HTML5. 
 
 ## Herramientas utilizadas
 
-Se utilizan las siguientes herramientas principales para desarrollar el proyecto:
+Se utilizaron las siguientes herramientas principales para desarrollar el proyecto:
 
 * [Java 18](https://www.oracle.com/java/technologies/downloads/): La aplicación utiliza la Programación Orientada a Objetos y se desarrolla utilizando capas, compuestas por Servicios, Entidades, Controladores y Repositorios
 * [IntelliJ IDEA Ultimate 2022.2.2](https://www.jetbrains.com/idea/download/#section=windows): IDE perfecto para trabajar con Java y SpringBoot. Tiene bastante buena compatibilidad con varios plugins y es perfecto para desarollar un proyecto monolítico.
@@ -20,83 +21,39 @@ Se utilizan las siguientes herramientas principales para desarrollar el proyecto
 * [SonarQube](https://www.sonarqube.org): Se utiliza para testear código y obtener los Code Smells del proyecto (Buenas prácticas)
 * [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started): Se utiliza para poder levantar la aplicación en un servidor web, como lo es [Digtal Ocean](https://www.digitalocean.com)
 
-## Comandos importantes
+## Imágenes de la aplicación
 
-Los siguientes son comandos importantes a tener en consideración.
+### Menú principal
 
-### Maven
+![image](https://user-images.githubusercontent.com/91446330/195421610-760b72d8-74ce-4ce1-98f5-12a5ecb00fb2.png)
 
-* Maven Install:
-```sh
-mvn clean install
-```
-* Maven Install (Sin tests):
-```sh
-mvn clean install -DskipTests
-```
-* Maven Run
-```sh
-mvn spring-boot:run
-```
-### Docker
-La cuenta de DockerHub utilizada es johnserrano159 y el repositorio se llama mueblesstgopep1.
+### Ver empleados
 
-* Ver contenedores:
-```sh
-docker ps
-```
-* Ver Imágenes:
-```sh
-docker image ls
-```
-* Docker Build (Crear Imágen)
-```sh
-docker build -t johnserrano159/mueblesstgopep1 .
-```
-* Eliminar Imágen
-```sh
-docker rmi <nombre imagen>
-```
-* Eliminar Contenedor
-```sh
-docker rm -f <nombre contenedor>
-```
-* Subir Imágen a DockerHub
-```sh
-docker push johnserrano159/mueblesstgopep1
-```
-* Levantar Contenedor
-```sh
-docker-compose up
-```
-* Bajar Contenedor
-```sh
-docker-compose down
-```
+![image](https://user-images.githubusercontent.com/91446330/195421668-518e0a12-4404-41a5-bcae-e111c5e9cb9a.png)
 
-### Terraform
-* Levantar Máquina Virtual de Digital Ocean:
-```sh
-ssh root@45.55.40.59
-```
-En la consola de la MV, se debe aplicar docker-compose. La aplicación queda disponible en 45.55.40.59:8090/main
 
-### Jenkins
-En la carpeta donde se encuentra el archivo "jenkins.war":
-* Levantar Jenkins (localhost:8080/):
-```sh
-java -jar jenkins.war
-```
+### Cargar DATA.TXT
 
-### SonarQube
-Para analizar manualmente con SonarQube, en la carpeta del proyecto:
-```sh
-mvn clean verify sonar:sonar -Dsonar.projectKey=TingesoPEP1 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_51eadf747122b06a85b8adcf823a4c2a87311940
-```
+![image](https://user-images.githubusercontent.com/91446330/195421732-1d99356b-c866-4c2c-8918-90717c92474c.png)
 
-## Ejecución paso a paso:
-1. Ejecutar Jenkins. Esto permitirá que se prueben todos los Tests Unitarios creados y se suba la imágen del proyecto a DockerHub.
-2. Revisar reporte de SonarQube. Esto permite comprobar los Codes Smells junto con el porcentaje de cobertura de los Tests.
-3. Levantar la Máquina Virtual de Digital Ocean.
-4. Levantar la aplicación mediante Docker-Compose.
-5. Acceder a la dirección web de la aplicación y probar cosas.
+
+### Ver el último DATA.TXT cargado
+
+![image](https://user-images.githubusercontent.com/91446330/195421812-32a9d3db-317e-4499-9006-d1a09ffba527.png)
+
+### Ingresar Justificativos
+
+![image](https://user-images.githubusercontent.com/91446330/195421864-9717ceb0-6541-4ec7-af7b-0116bec1274e.png)
+
+### Ingresar autorizaciones
+
+![image](https://user-images.githubusercontent.com/91446330/195421899-6ee65cf8-6e63-486f-9c3b-a54216dad547.png)
+
+
+### Planilla de Sueldos
+
+![image](https://user-images.githubusercontent.com/91446330/195422032-cffe7a0f-e295-4708-ab4d-a12088f5736a.png)
+
+## Reporte de SonarQube
+
+![image](https://user-images.githubusercontent.com/91446330/195422414-fe544ec9-e6c2-465b-81bc-295dbef3696e.png)
