@@ -23,16 +23,16 @@ class SubirDataTest {
 
     @Test
     void testGuardarDataDB(){
-        subirData.guardarDataDB("2022/10/06", "08:00", "20.537.567-8");
-        SubirDataEntity newData = subirData.obtenerEspecifico("20.537.567-8", "2022/10/06");
-        assertEquals("20.537.567-8", newData.getRut());
+        subirData.guardarDataDB("2022/10/06", "08:00", "567-8");
+        SubirDataEntity newData = subirData.obtenerEspecifico("567-8", "2022/10/06");
+        assertEquals("567-8", newData.getRut());
         subirData.eliminarData(subirData.obtenerData(newData.getRut()));
     }
 
     @Test
     void testEncontrarData() throws ParseException {
-        subirData.insertarData("20.537.567-8", "2022/10/01");
-        SubirDataEntity newData = subirData.obtenerEspecifico2("20.537.567-8", "2022/10/06");
+        subirData.insertarData("567-8", "2022/10/01");
+        SubirDataEntity newData = subirData.obtenerEspecifico2("567-8", "2022/10/06");
         assertEquals("18:00", newData.getHora());
         subirData.eliminarData(subirData.obtenerData(newData.getRut()));
     }
@@ -40,7 +40,7 @@ class SubirDataTest {
     @Test
     void testObtenerData(){
         SubirDataEntity newData = new SubirDataEntity();
-        newData.setRut("20.999.123-8");
+        newData.setRut("123-8");
         newData.setFecha("2025/12/13");
         newData.setHora("08:30");
         dataRepository.save(newData);
@@ -51,7 +51,7 @@ class SubirDataTest {
     @Test
     void testObtenerRuts(){
         SubirDataEntity newData = new SubirDataEntity();
-        newData.setRut("20.324.158-8");
+        newData.setRut("158-8");
         newData.setFecha("2020/03/30");
         newData.setHora("18:30");
         dataRepository.save(newData);

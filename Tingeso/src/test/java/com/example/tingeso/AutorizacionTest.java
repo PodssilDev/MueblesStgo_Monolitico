@@ -20,21 +20,21 @@ class AutorizacionTest{
     @Test
     void testInsertarAutorizacion() {
         Map<String, String> newmap = new HashMap<>();
-        newmap.put("rut", "20.537.567-8");
+        newmap.put("rut", "20-8");
         newmap.put("fecha", "2022/08/02");
         autorizacion.guardarAutorizacion(newmap);
-        AutorizacionEntity newAutorizacion = autorizacion.buscarAutorizacion("20.537.567-8", "2022/08/02");
-        assertEquals("20.537.567-8", newAutorizacion.getRut());
+        AutorizacionEntity newAutorizacion = autorizacion.buscarAutorizacion("20-8", "2022/08/02");
+        assertEquals("20-8", newAutorizacion.getRut());
         autorizacion.eliminarAutorizacion(newAutorizacion);
     }
 
     @Test
     void testInsertarAutorizacion2(){
         Map<String, String> newmap = new HashMap<>();
-        newmap.put("rut", "27.753.231-8");
+        newmap.put("rut", "27-8");
         newmap.put("fecha", "2020/10/13");
         autorizacion.guardarAutorizacion(newmap);
-        AutorizacionEntity newAutorizacion = autorizacion.buscarAutorizacion("27.753.231-8", "2020/10/13");
+        AutorizacionEntity newAutorizacion = autorizacion.buscarAutorizacion("27-8", "2020/10/13");
         assertEquals("2020/10/13", newAutorizacion.getFecha());
         autorizacion.eliminarAutorizaciones();
     }

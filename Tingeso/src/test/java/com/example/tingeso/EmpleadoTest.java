@@ -21,7 +21,7 @@ class EmpleadoTest{
     @Test
     void testObtenerEmpleados(){
         EmpleadoEntity newEmpleado = new EmpleadoEntity();
-        newEmpleado.setRut("20.999.123-8");
+        newEmpleado.setRut("99-8");
         newEmpleado.setApellidos("HINAWARI NARA");
         newEmpleado.setNombres("TENSHI SUMIRE");
         empleadoRepository.save(newEmpleado);
@@ -32,7 +32,7 @@ class EmpleadoTest{
     @Test
     void testObtenerCategoria(){
         EmpleadoEntity newEmpleado = new EmpleadoEntity();
-        newEmpleado.setRut("20.999.093-1");
+        newEmpleado.setRut("99-1");
         newEmpleado.setCategoria("A");
         empleadoRepository.save(newEmpleado);
         assertEquals("A", empleado.findByRut(newEmpleado.getRut()).getCategoria());

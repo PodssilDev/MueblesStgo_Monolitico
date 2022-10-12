@@ -20,21 +20,21 @@ class JustificativoTest {
     @Test
     void testInsertarJustificativo() {
         Map<String, String> newMap = new HashMap<>();
-        newMap.put("rut", "20.537.567-8");
+        newMap.put("rut", "53-8");
         newMap.put("fecha", "2022/05/18");
         justificativo.guardarJustificativo(newMap);
-        JustificativoEntity newJustificativo = justificativo.buscarJustificativo("20.537.567-8", "2022/05/18");
-        assertEquals("20.537.567-8", newJustificativo.getRut());
+        JustificativoEntity newJustificativo = justificativo.buscarJustificativo("53-8", "2022/05/18");
+        assertEquals("53-8", newJustificativo.getRut());
         justificativo.eliminarJustificativo(newJustificativo);
     }
 
     @Test
     void testInsertarJustificativo2(){
         Map<String, String> newmap = new HashMap<>();
-        newmap.put("rut", "27.753.231-8");
+        newmap.put("rut", "753-1");
         newmap.put("fecha", "2020/10/17");
         justificativo.guardarJustificativo(newmap);
-        JustificativoEntity newJustificativo = justificativo.buscarJustificativo("27.753.231-8", "2020/10/17");
+        JustificativoEntity newJustificativo = justificativo.buscarJustificativo("753-1", "2020/10/17");
         assertEquals("2020/10/17", newJustificativo.getFecha());
         justificativo.eliminarJustificativos();
     }

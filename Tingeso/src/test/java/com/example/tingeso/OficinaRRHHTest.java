@@ -115,10 +115,10 @@ class OficinaRRHHTest {
     @Test
     void testMetodosCalculos() throws ParseException {
         EmpleadoEntity empleado = new EmpleadoEntity();
-        empleado.setRut("20.942.821-8");
+        empleado.setRut("942-8");
         empleado.setCategoria("A");
-        empleado.setNombres("JOHN PATRICIO");
-        empleado.setApellidos("SERRANO CARRASCO");
+        empleado.setNombres("J");
+        empleado.setApellidos("S C");
         empleado.setFecha_ingreso("2010/06/12");
         empleadoRepository.save(empleado);
         data.insertarData(empleado.getRut(), "2022/06/01");
@@ -143,10 +143,10 @@ class OficinaRRHHTest {
     @Test
     void testCalculoFull() throws ParseException {
         EmpleadoEntity empleado = new EmpleadoEntity();
-        empleado.setRut("20.942.821-8");
+        empleado.setRut("942-8");
         empleado.setCategoria("B");
-        empleado.setNombres("JOHN PATRICIO");
-        empleado.setApellidos("SERRANO CARRASCO");
+        empleado.setNombres("J");
+        empleado.setApellidos("S C");
         empleado.setFecha_ingreso("2010/06/12");
         empleadoRepository.save(empleado);
         data.insertarData(empleado.getRut(), "2022/06/01");
@@ -161,7 +161,7 @@ class OficinaRRHHTest {
     @Test
     void testReportePlanilla() throws ParseException{
         EmpleadoEntity empleado = new EmpleadoEntity();
-        empleado.setRut("20.342.128-5");
+        empleado.setRut("128-5");
         empleado.setCategoria("A");
         empleado.setNombres("KRIS");
         empleado.setApellidos("DREEMUR");
@@ -169,7 +169,7 @@ class OficinaRRHHTest {
         empleadoRepository.save(empleado);
         data.insertarData(empleado.getRut(), "2022/06/01");
         oficinaService.reportePlanilla();
-        OficinaRRHHEntity empleadoReporte = oficinaRepository.findByRut("20.342.128-5");
+        OficinaRRHHEntity empleadoReporte = oficinaRepository.findByRut("128-5");
         assertEquals(0.0, empleadoReporte.getBonificacion_dedicacion(), 0.0);
         empleadoRepository.delete(empleado);
         oficinaRepository.delete(empleadoReporte);
@@ -179,7 +179,7 @@ class OficinaRRHHTest {
     @Test
     void testObtenerReporte(){
         OficinaRRHHEntity reporteEmpleado = new OficinaRRHHEntity();
-        reporteEmpleado.setRut("20.432.128-5");
+        reporteEmpleado.setRut("128-5");
         oficinaRepository.save(reporteEmpleado);
         assertNotNull(oficinaService.obtenerData());
     }
@@ -188,17 +188,17 @@ class OficinaRRHHTest {
     void testComprobarJustificativo(){
         JustificativoEntity justificativo = new JustificativoEntity();
         justificativo.setFecha("2022/10/04");
-        justificativo.setRut("20.876.231-1");
+        justificativo.setRut("231-1");
         justificativoRepository.save(justificativo);
         EmpleadoEntity empleado = new EmpleadoEntity();
-        empleado.setRut("20.876.231-1");
+        empleado.setRut("231-1");
         empleado.setCategoria("C");
         empleado.setNombres("ALCIDES");
         empleado.setApellidos("QUISPE");
         empleado.setFecha_nacimiento("1990/01/03");
         empleado.setFecha_ingreso("2019/10/31");
         empleadoRepository.save(empleado);
-        double descuento = oficinaService.comprobarJustificativo("20.876.231-1", "2022/10/04", 0.0);
+        double descuento = oficinaService.comprobarJustificativo("231-1", "2022/10/04", 0.0);
         assertEquals(0.0, descuento, 0.0);
         empleadoRepository.delete(empleado);
         justificativoRepository.delete(justificativo);
@@ -207,10 +207,10 @@ class OficinaRRHHTest {
     @Test
     void testComprobarJustificativo2(){
         EmpleadoEntity empleado = new EmpleadoEntity();
-        empleado.setRut("20.876.231-1");
+        empleado.setRut("231-1");
         empleado.setCategoria("C");
         empleadoRepository.save(empleado);
-        double descuento = oficinaService.comprobarJustificativo("20.876.231-1", "2022/10/18", 0.0);
+        double descuento = oficinaService.comprobarJustificativo("231-1", "2022/10/18", 0.0);
         assertEquals(120000.0, descuento, 0.0);
         empleadoRepository.delete(empleado);
     }
