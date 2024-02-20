@@ -1,12 +1,7 @@
-# Técnicas de Ingeniería de Software PEP 1 2022-2: Aplicación Monolítica 
-
-* Autor: John Serrano
-* Sección: 13319-0-A-1
-* Profesor: Alcides Quispe
-* Nota después de la evaluación: 7.0/7.0
+# MueblesStgo: Aplicación Monolítica 
 
 ## Descripción
-En este repositorio se encuentra la aplicación monolítica desarrollada para la PEP 1 de Técnicas de Ingeniería de Software en 2022. La aplicación esta desarrollada principalmente en Java, utilizando [SpringBoot](https://start.spring.io) y HTML5. 
+En este repositorio se encuentra la aplicación monolítica de MueblesStgo. La aplicación esta desarrollada principalmente en Java, utilizando [SpringBoot](https://start.spring.io) y HTML5. 
 
 ## Herramientas utilizadas
 
